@@ -58,85 +58,28 @@ export const lists: Lists = {
       // we want a user to have many posts, and we are saying that the user
       // should be referencable by the 'author' field of posts.
       // Make sure you read the docs to understand how they work: https://keystonejs.com/docs/guides/relationships#understanding-relationships
-      posts: relationship({ ref: 'Post.author', many: true }),
     },
     // Here we can configure the Admin UI. We want to show a user's name and posts in the Admin UI
-    ui: {
-      listView: {
-        initialColumns: ['name', 'posts'],
-      },
-    },
   }),
-  // Our second list is the Posts list. We've got a few more fields here
-  // so we have all the info we need for displaying posts.
-  Post: list({
+
+  Product: list({
     fields: {
-      title: text(),
-      // Having the status here will make it easy for us to choose whether to display
-      // posts on a live site.
+      name: text({ validation: { isRequired: true } }),
+      description: text({ ui: {
+        displayMode: 'textarea'
+      }}),
       status: select({
         options: [
-          { label: 'Published', value: 'published' },
-          { label: 'Draft', value: 'draft' },
+          { label: 'Draft', value: 'DRAFT' },
+          { label: 'Available', value: 'AVAILABLE' },
+          { label: 'Unavailable', value: 'UNAVAILABLE' }
         ],
-        // We want to make sure new posts start off as a draft when they are created
-        defaultValue: 'draft',
-        // fields also have the ability to configure their appearance in the Admin UI
+        defaultValue: 'DRAFT',
         ui: {
           displayMode: 'segmented-control',
-        },
-      }),
-      // The document field can be used for making highly editable content. Check out our
-      // guide on the document field https://keystonejs.com/docs/guides/document-fields#how-to-use-document-fields
-      // for more information
-      content: document({
-        formatting: true,
-        layouts: [
-          [1, 1],
-          [1, 1, 1],
-          [2, 1],
-          [1, 2],
-          [1, 2, 1],
-        ],
-        links: true,
-        dividers: true,
-      }),
-      publishDate: timestamp(),
-      // Here is the link from post => author.
-      // We've configured its UI display quite a lot to make the experience of editing posts better.
-      author: relationship({
-        ref: 'User.posts',
-        ui: {
-          displayMode: 'cards',
-          cardFields: ['name', 'email'],
-          inlineEdit: { fields: ['name', 'email'] },
-          linkToItem: true,
-          inlineConnect: true,
-        },
-      }),
-      // We also link posts to tags. This is a many <=> many linking.
-      tags: relationship({
-        ref: 'Tag.posts',
-        ui: {
-          displayMode: 'cards',
-          cardFields: ['name'],
-          inlineEdit: { fields: ['name'] },
-          linkToItem: true,
-          inlineConnect: true,
-          inlineCreate: { fields: ['name'] },
-        },
-        many: true,
-      }),
-    },
-  }),
-  // Our final list is the tag list. This field is just a name and a relationship to posts
-  Tag: list({
-    ui: {
-      isHidden: true,
-    },
-    fields: {
-      name: text(),
-      posts: relationship({ ref: 'Post.tags', many: true }),
-    },
-  }),
+          createView: { fieldMode: 'hidden' },
+        }
+      })
+    }
+  })
 };
