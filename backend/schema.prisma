@@ -19,9 +19,19 @@ model User {
   password String
 }
 
-model Product {
+model Form {
   id          String  @id @default(cuid())
   name        String  @default("")
   description String  @default("")
   status      String? @default("DRAFT")
+}
+
+model Visual {
+  id                 String  @id @default(cuid())
+  captured_filesize  Int?
+  captured_extension String?
+  captured_width     Int?
+  captured_height    Int?
+  captured_id        String?
+  title              String  @default("")
 }

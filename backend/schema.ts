@@ -25,6 +25,7 @@ import {
   password,
   timestamp,
   select,
+  image
 } from '@keystone-6/core/fields';
 // The document field is a more complicated field, so it's in its own package
 // Keystone aims to have all the base field types, but you can make your own
@@ -62,7 +63,7 @@ export const lists: Lists = {
     // Here we can configure the Admin UI. We want to show a user's name and posts in the Admin UI
   }),
 
-  Product: list({
+  Form: list({
     fields: {
       name: text({ validation: { isRequired: true } }),
       description: text({ ui: {
@@ -80,6 +81,12 @@ export const lists: Lists = {
           createView: { fieldMode: 'hidden' },
         }
       })
+    }
+  }),
+  Visual: list({
+    fields: {
+      captured: image({ storage: 'local_images' }),
+      title: text() 
     }
   })
 };
