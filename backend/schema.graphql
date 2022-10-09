@@ -97,7 +97,9 @@ type Form {
   id: ID!
   name: String
   description: String
+  captured: Visual
   status: String
+  price: Int
 }
 
 input FormWhereUniqueInput {
@@ -111,7 +113,9 @@ input FormWhereInput {
   id: IDFilter
   name: StringFilter
   description: StringFilter
+  captured: VisualWhereInput
   status: StringNullableFilter
+  price: IntNullableFilter
 }
 
 input StringNullableFilter {
@@ -142,17 +146,37 @@ input NestedStringNullableFilter {
   not: NestedStringNullableFilter
 }
 
+input IntNullableFilter {
+  equals: Int
+  in: [Int!]
+  notIn: [Int!]
+  lt: Int
+  lte: Int
+  gt: Int
+  gte: Int
+  not: IntNullableFilter
+}
+
 input FormOrderByInput {
   id: OrderDirection
   name: OrderDirection
   description: OrderDirection
   status: OrderDirection
+  price: OrderDirection
 }
 
 input FormUpdateInput {
   name: String
   description: String
+  captured: VisualRelateToOneForUpdateInput
   status: String
+  price: Int
+}
+
+input VisualRelateToOneForUpdateInput {
+  create: VisualCreateInput
+  connect: VisualWhereUniqueInput
+  disconnect: Boolean
 }
 
 input FormUpdateArgs {
@@ -163,12 +187,20 @@ input FormUpdateArgs {
 input FormCreateInput {
   name: String
   description: String
+  captured: VisualRelateToOneForCreateInput
   status: String
+  price: Int
+}
+
+input VisualRelateToOneForCreateInput {
+  create: VisualCreateInput
+  connect: VisualWhereUniqueInput
 }
 
 type Visual {
   id: ID!
   captured: ImageFieldOutput
+  form: Form
   title: String
 }
 
@@ -197,6 +229,7 @@ input VisualWhereInput {
   OR: [VisualWhereInput!]
   NOT: [VisualWhereInput!]
   id: IDFilter
+  form: FormWhereInput
   title: StringFilter
 }
 
@@ -207,6 +240,7 @@ input VisualOrderByInput {
 
 input VisualUpdateInput {
   captured: ImageFieldInput
+  form: FormRelateToOneForUpdateInput
   title: String
 }
 
@@ -219,6 +253,12 @@ The `Upload` scalar type represents a file upload.
 """
 scalar Upload
 
+input FormRelateToOneForUpdateInput {
+  create: FormCreateInput
+  connect: FormWhereUniqueInput
+  disconnect: Boolean
+}
+
 input VisualUpdateArgs {
   where: VisualWhereUniqueInput!
   data: VisualUpdateInput!
@@ -226,7 +266,13 @@ input VisualUpdateArgs {
 
 input VisualCreateInput {
   captured: ImageFieldInput
+  form: FormRelateToOneForCreateInput
   title: String
+}
+
+input FormRelateToOneForCreateInput {
+  create: FormCreateInput
+  connect: FormWhereUniqueInput
 }
 
 """

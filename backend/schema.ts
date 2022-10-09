@@ -25,7 +25,8 @@ import {
   password,
   timestamp,
   select,
-  image
+  image,
+  integer
 } from '@keystone-6/core/fields';
 // The document field is a more complicated field, so it's in its own package
 // Keystone aims to have all the base field types, but you can make your own
@@ -69,23 +70,27 @@ export const lists: Lists = {
       description: text({ ui: {
         displayMode: 'textarea'
       }}),
+      captured: relationship({ ref: 'Visual.form' }),
       status: select({
         options: [
           { label: 'Draft', value: 'DRAFT' },
           { label: 'Available', value: 'AVAILABLE' },
-          { label: 'Unavailable', value: 'UNAVAILABLE' }
+          { label: 'Unavailable', value: 'UNAVAILABLE' },
+          { label: 'Unclear', value: 'UNCLEAR' }
         ],
         defaultValue: 'DRAFT',
         ui: {
           displayMode: 'segmented-control',
           createView: { fieldMode: 'hidden' },
         }
-      })
+      }),
+      price: integer()
     }
   }),
   Visual: list({
     fields: {
       captured: image({ storage: 'local_images' }),
+      form: relationship({ ref: 'Form.captured' }),
       title: text() 
     }
   })

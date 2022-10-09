@@ -23,7 +23,10 @@ model Form {
   id          String  @id @default(cuid())
   name        String  @default("")
   description String  @default("")
+  captured    Visual? @relation("Form_captured", fields: [capturedId], references: [id])
+  capturedId  String? @unique @map("captured")
   status      String? @default("DRAFT")
+  price       Int?
 }
 
 model Visual {
@@ -33,5 +36,6 @@ model Visual {
   captured_width     Int?
   captured_height    Int?
   captured_id        String?
+  form               Form?   @relation("Form_captured")
   title              String  @default("")
 }
