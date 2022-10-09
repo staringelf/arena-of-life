@@ -9,3 +9,7 @@ variables.env
 *.env
 .keystone
 *.db
+node_modules
+.keystone/admin
+keystone.db
+*.log
