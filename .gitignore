@@ -12,3 +12,4 @@ variables.env
 .keystone/admin
 keystone.db
 *.log
+backend/public

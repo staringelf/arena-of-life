@@ -93,27 +93,27 @@ input UserCreateInput {
   password: String
 }
 
-type Form {
+type Product {
   id: ID!
   name: String
   description: String
-  captured: Visual
+  photo: ProductImage
   status: String
   price: Int
 }
 
-input FormWhereUniqueInput {
+input ProductWhereUniqueInput {
   id: ID
 }
 
-input FormWhereInput {
-  AND: [FormWhereInput!]
-  OR: [FormWhereInput!]
-  NOT: [FormWhereInput!]
+input ProductWhereInput {
+  AND: [ProductWhereInput!]
+  OR: [ProductWhereInput!]
+  NOT: [ProductWhereInput!]
   id: IDFilter
   name: StringFilter
   description: StringFilter
-  captured: VisualWhereInput
+  photo: ProductImageWhereInput
   status: StringNullableFilter
   price: IntNullableFilter
 }
@@ -157,7 +157,7 @@ input IntNullableFilter {
   not: IntNullableFilter
 }
 
-input FormOrderByInput {
+input ProductOrderByInput {
   id: OrderDirection
   name: OrderDirection
   description: OrderDirection
@@ -165,42 +165,42 @@ input FormOrderByInput {
   price: OrderDirection
 }
 
-input FormUpdateInput {
+input ProductUpdateInput {
   name: String
   description: String
-  captured: VisualRelateToOneForUpdateInput
+  photo: ProductImageRelateToOneForUpdateInput
   status: String
   price: Int
 }
 
-input VisualRelateToOneForUpdateInput {
-  create: VisualCreateInput
-  connect: VisualWhereUniqueInput
+input ProductImageRelateToOneForUpdateInput {
+  create: ProductImageCreateInput
+  connect: ProductImageWhereUniqueInput
   disconnect: Boolean
 }
 
-input FormUpdateArgs {
-  where: FormWhereUniqueInput!
-  data: FormUpdateInput!
+input ProductUpdateArgs {
+  where: ProductWhereUniqueInput!
+  data: ProductUpdateInput!
 }
 
-input FormCreateInput {
+input ProductCreateInput {
   name: String
   description: String
-  captured: VisualRelateToOneForCreateInput
+  photo: ProductImageRelateToOneForCreateInput
   status: String
   price: Int
 }
 
-input VisualRelateToOneForCreateInput {
-  create: VisualCreateInput
-  connect: VisualWhereUniqueInput
+input ProductImageRelateToOneForCreateInput {
+  create: ProductImageCreateInput
+  connect: ProductImageWhereUniqueInput
 }
 
-type Visual {
+type ProductImage {
   id: ID!
-  captured: ImageFieldOutput
-  form: Form
+  photo: ImageFieldOutput
+  product: Product
   title: String
 }
 
@@ -220,27 +220,27 @@ enum ImageExtension {
   gif
 }
 
-input VisualWhereUniqueInput {
+input ProductImageWhereUniqueInput {
   id: ID
 }
 
-input VisualWhereInput {
-  AND: [VisualWhereInput!]
-  OR: [VisualWhereInput!]
-  NOT: [VisualWhereInput!]
+input ProductImageWhereInput {
+  AND: [ProductImageWhereInput!]
+  OR: [ProductImageWhereInput!]
+  NOT: [ProductImageWhereInput!]
   id: IDFilter
-  form: FormWhereInput
+  product: ProductWhereInput
   title: StringFilter
 }
 
-input VisualOrderByInput {
+input ProductImageOrderByInput {
   id: OrderDirection
   title: OrderDirection
 }
 
-input VisualUpdateInput {
-  captured: ImageFieldInput
-  form: FormRelateToOneForUpdateInput
+input ProductImageUpdateInput {
+  photo: ImageFieldInput
+  product: ProductRelateToOneForUpdateInput
   title: String
 }
 
@@ -253,26 +253,26 @@ The `Upload` scalar type represents a file upload.
 """
 scalar Upload
 
-input FormRelateToOneForUpdateInput {
-  create: FormCreateInput
-  connect: FormWhereUniqueInput
+input ProductRelateToOneForUpdateInput {
+  create: ProductCreateInput
+  connect: ProductWhereUniqueInput
   disconnect: Boolean
 }
 
-input VisualUpdateArgs {
-  where: VisualWhereUniqueInput!
-  data: VisualUpdateInput!
+input ProductImageUpdateArgs {
+  where: ProductImageWhereUniqueInput!
+  data: ProductImageUpdateInput!
 }
 
-input VisualCreateInput {
-  captured: ImageFieldInput
-  form: FormRelateToOneForCreateInput
+input ProductImageCreateInput {
+  photo: ImageFieldInput
+  product: ProductRelateToOneForCreateInput
   title: String
 }
 
-input FormRelateToOneForCreateInput {
-  create: FormCreateInput
-  connect: FormWhereUniqueInput
+input ProductRelateToOneForCreateInput {
+  create: ProductCreateInput
+  connect: ProductWhereUniqueInput
 }
 
 """
@@ -290,18 +290,24 @@ type Mutation {
   updateUsers(data: [UserUpdateArgs!]!): [User]
   deleteUser(where: UserWhereUniqueInput!): User
   deleteUsers(where: [UserWhereUniqueInput!]!): [User]
-  createForm(data: FormCreateInput!): Form
-  createForms(data: [FormCreateInput!]!): [Form]
-  updateForm(where: FormWhereUniqueInput!, data: FormUpdateInput!): Form
-  updateForms(data: [FormUpdateArgs!]!): [Form]
-  deleteForm(where: FormWhereUniqueInput!): Form
-  deleteForms(where: [FormWhereUniqueInput!]!): [Form]
-  createVisual(data: VisualCreateInput!): Visual
-  createVisuals(data: [VisualCreateInput!]!): [Visual]
-  updateVisual(where: VisualWhereUniqueInput!, data: VisualUpdateInput!): Visual
-  updateVisuals(data: [VisualUpdateArgs!]!): [Visual]
-  deleteVisual(where: VisualWhereUniqueInput!): Visual
-  deleteVisuals(where: [VisualWhereUniqueInput!]!): [Visual]
+  createProduct(data: ProductCreateInput!): Product
+  createProducts(data: [ProductCreateInput!]!): [Product]
+  updateProduct(
+    where: ProductWhereUniqueInput!
+    data: ProductUpdateInput!
+  ): Product
+  updateProducts(data: [ProductUpdateArgs!]!): [Product]
+  deleteProduct(where: ProductWhereUniqueInput!): Product
+  deleteProducts(where: [ProductWhereUniqueInput!]!): [Product]
+  createProductImage(data: ProductImageCreateInput!): ProductImage
+  createProductImages(data: [ProductImageCreateInput!]!): [ProductImage]
+  updateProductImage(
+    where: ProductImageWhereUniqueInput!
+    data: ProductImageUpdateInput!
+  ): ProductImage
+  updateProductImages(data: [ProductImageUpdateArgs!]!): [ProductImage]
+  deleteProductImage(where: ProductImageWhereUniqueInput!): ProductImage
+  deleteProductImages(where: [ProductImageWhereUniqueInput!]!): [ProductImage]
   endSession: Boolean!
   authenticateUserWithPassword(
     email: String!
@@ -340,22 +346,22 @@ type Query {
   ): [User!]
   user(where: UserWhereUniqueInput!): User
   usersCount(where: UserWhereInput! = {}): Int
-  forms(
-    where: FormWhereInput! = {}
-    orderBy: [FormOrderByInput!]! = []
+  products(
+    where: ProductWhereInput! = {}
+    orderBy: [ProductOrderByInput!]! = []
     take: Int
     skip: Int! = 0
-  ): [Form!]
-  form(where: FormWhereUniqueInput!): Form
-  formsCount(where: FormWhereInput! = {}): Int
-  visuals(
-    where: VisualWhereInput! = {}
-    orderBy: [VisualOrderByInput!]! = []
+  ): [Product!]
+  product(where: ProductWhereUniqueInput!): Product
+  productsCount(where: ProductWhereInput! = {}): Int
+  productImages(
+    where: ProductImageWhereInput! = {}
+    orderBy: [ProductImageOrderByInput!]! = []
     take: Int
     skip: Int! = 0
-  ): [Visual!]
-  visual(where: VisualWhereUniqueInput!): Visual
-  visualsCount(where: VisualWhereInput! = {}): Int
+  ): [ProductImage!]
+  productImage(where: ProductImageWhereUniqueInput!): ProductImage
+  productImagesCount(where: ProductImageWhereInput! = {}): Int
   keystone: KeystoneMeta!
   authenticatedItem: AuthenticatedItem
 }

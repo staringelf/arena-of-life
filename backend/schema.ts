@@ -64,13 +64,13 @@ export const lists: Lists = {
     // Here we can configure the Admin UI. We want to show a user's name and posts in the Admin UI
   }),
 
-  Form: list({
+  Product: list({
     fields: {
       name: text({ validation: { isRequired: true } }),
       description: text({ ui: {
         displayMode: 'textarea'
       }}),
-      captured: relationship({ ref: 'Visual.form' }),
+      photo: relationship({ ref: 'ProductImage.product' }),
       status: select({
         options: [
           { label: 'Draft', value: 'DRAFT' },
@@ -87,10 +87,10 @@ export const lists: Lists = {
       price: integer()
     }
   }),
-  Visual: list({
+  ProductImage: list({
     fields: {
-      captured: image({ storage: 'local_images' }),
-      form: relationship({ ref: 'Form.captured' }),
+      photo: image({ storage: 'local_images' }),
+      product: relationship({ ref: 'Product.photo' }),
       title: text() 
     }
   })
