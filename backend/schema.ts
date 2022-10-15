@@ -89,7 +89,7 @@ export const lists: Lists = {
   }),
   ProductImage: list({
     fields: {
-      photo: image({ storage: 'local_images' }),
+      image: image({ storage: 'local_images' }),
       product: relationship({ ref: 'Product.photo' }),
       title: text() 
     }

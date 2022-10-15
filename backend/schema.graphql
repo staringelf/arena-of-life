@@ -199,7 +199,7 @@ input ProductImageRelateToOneForCreateInput {
 
 type ProductImage {
   id: ID!
-  photo: ImageFieldOutput
+  image: ImageFieldOutput
   product: Product
   title: String
 }
@@ -239,7 +239,7 @@ input ProductImageOrderByInput {
 }
 
 input ProductImageUpdateInput {
-  photo: ImageFieldInput
+  image: ImageFieldInput
   product: ProductRelateToOneForUpdateInput
   title: String
 }
@@ -265,7 +265,7 @@ input ProductImageUpdateArgs {
 }
 
 input ProductImageCreateInput {
-  photo: ImageFieldInput
+  image: ImageFieldInput
   product: ProductRelateToOneForCreateInput
   title: String
 }

@@ -31,11 +31,11 @@ model Product {
 
 model ProductImage {
   id              String   @id @default(cuid())
-  photo_filesize  Int?
-  photo_extension String?
-  photo_width     Int?
-  photo_height    Int?
-  photo_id        String?
+  image_filesize  Int?
+  image_extension String?
+  image_width     Int?
+  image_height    Int?
+  image_id        String?
   product         Product? @relation("Product_photo")
   title           String   @default("")
 }
