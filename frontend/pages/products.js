@@ -1,5 +1,6 @@
 import gql from 'graphql-tag';
 import { useQuery } from '@apollo/client';
+import Product from '../components/Product';
 
 const PRODUCTS_QUERY = gql`
   query PRODUCTS_QUERY {
@@ -28,7 +29,7 @@ function ProductsPage() {
   if (error) return <p> Error: {error.message}</p>
   return <div>
     <h3>PRODUCTS</h3>
-    {data.products.map(product => <p key={product.id}>{product.name}</p>)}
+    {data.products.map(product => <Product key={product.id} product={product} />)}
   </div>
 }
 
