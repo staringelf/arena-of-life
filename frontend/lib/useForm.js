@@ -9,6 +9,9 @@ function useForm(initialValue) {
     if (type === 'number'){
       value = +value;
     }
+    if (type === 'file'){
+      [value] = e.target.files;
+    }
     setInputs({
       ...inputs,
       [name]: value
@@ -20,10 +23,10 @@ function useForm(initialValue) {
   }
 
   function clearForm() {
-    setInputs({})
+    setInputs(Object.fromEntries(Object.entries(inputs).map(([key, value]) => [key, ''])));
   }
 
-  return [inputs, handleInputChange, resetForm, clearForm];
+  return {inputs, handleInputChange, resetForm, clearForm};
 }
 
 export default useForm;
