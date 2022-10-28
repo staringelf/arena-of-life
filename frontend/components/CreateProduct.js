@@ -2,7 +2,7 @@ import useForm from '../lib/useForm';
 import { gql, useMutation } from '@apollo/client';
 import DisplayError from './ErrorMessage';
 import { PRODUCTS_QUERY } from './Products';
-console.log('PRODUCTS_QUERY: ', PRODUCTS_QUERY);
+import Router from 'next/router';
 
 const CREATE_PRODUCT_MUTATION = gql`
   mutation CREATE_PRODUCT_MUTATION (
@@ -48,8 +48,11 @@ function CreateProduct() {
   return (
     <form encType="multipart/form-data" onSubmit={async (e) => {
       e.preventDefault();
-      await createProduct();
-      alert('Done');
+      const res = await createProduct();
+      clearForm();
+      Router.push({
+        pathname: `/product/${res.data.createProduct.id}`
+      })
     }}>
       <DisplayError error={error} />
       <label htmlFor="name">
