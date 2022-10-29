@@ -15,8 +15,7 @@ export const PRODUCTS_QUERY = gql`
           height
           extension
           url
-        },
-        id
+        }
       }
     }
   }`;

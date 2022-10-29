@@ -1,3 +1,7 @@
-export default function SingleProduct() {
-  return <p>Single Product</p>
+import SingleProduct from "../../components/SingleProduct";
+
+function SingleProductPage({query}) {
+  return <SingleProduct id={query.id} />
 }
+
+export default SingleProductPage;
