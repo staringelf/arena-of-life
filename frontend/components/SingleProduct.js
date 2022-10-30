@@ -2,6 +2,7 @@ import { gql, useQuery } from "@apollo/client";
 import DisplayError from "./ErrorMessage";
 import formatMoney from "../lib/formatMoney";
 import Head from 'next/head';
+import Link from "next/link";
 
 const SINGLE_ITEM_QUERY = gql`
   query SINGLE_ITEM_QUERY ($id: ID!) {
@@ -39,6 +40,14 @@ function SingleProduct({ id }) {
         <h2>{ product.name }</h2>
         <p>{ product.description }</p>
         <p>{ formatMoney(product.price) }</p>
+        <Link href={{
+          pathname: '/update',
+          query: {
+            id: id
+          }
+        }}>
+          Edit
+        </Link>
       </div>
   )
 }

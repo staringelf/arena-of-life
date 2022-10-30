@@ -1,8 +1,12 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-function useForm(initialValue) {
+function useForm(initialValue = {}) {
   const [inputs, setInputs] = useState(initialValue);
-  console.log(inputs);
+  const initialValues = Object.values(initialValue).join('');
+
+  useEffect(() => {
+    setInputs(initialValue);
+  }, [initialValues])
   
   function handleInputChange(e) {
     let {value, type, name} = e.target;

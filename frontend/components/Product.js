@@ -9,7 +9,15 @@ function Product({ product }){
     </h2>
     <img src={product?.photo?.image?.url} alt={product.name} />
     <p>{product.description}</p>
-    <p>{formatMoney(product.price)}</p>
+    <p>{formatMoney(parseInt(product.price))}</p>
+    <Link href={{
+      pathname: 'update',
+      query: {
+        id: product.id
+      }
+    }}>
+      Edit
+    </Link>
   </div>
 }
 
